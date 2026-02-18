@@ -36,9 +36,16 @@ if cookie_domain:
     CSRF_COOKIE_DOMAIN = cookie_domain
     SESSION_COOKIE_DOMAIN = cookie_domain
 
+secure_cookies = os.environ.get('DJANGO_SECURE_COOKIES', '0') == '1'
+
 # If running behind a reverse proxy (e.g. Nginx) that terminates TLS, enable this
 if os.environ.get('DJANGO_BEHIND_PROXY', '0') == '1':
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    secure_cookies = True
+
+if secure_cookies:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
 
 
 # Application definition
