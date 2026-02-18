@@ -32,6 +32,9 @@ staticfiles/
 .env.*
 *.env
 
+# Allow env templates
+!.env.example
+
 # --- Testing / coverage ---
 .pytest_cache/
 .coverage
