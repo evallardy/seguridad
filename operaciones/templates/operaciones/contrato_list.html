@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Contratos{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Contratos</h3>
+  <a class="btn btn-primary" href="{% url 'operaciones:contrato_create' %}" data-bs-toggle="tooltip" title="Nuevo" aria-label="Nuevo">
+    <i class="bi bi-plus-lg"></i>
+  </a>
+</div>
+{% include "partials/list_filters.html" %}
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-striped mb-0">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Numero</th>
+          <th>Inicio</th>
+          <th>Fin</th>
+          <th>Estatus</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for contrato in object_list %}
+          <tr>
+            <td>{{ contrato.cliente }}</td>
+            <td>{{ contrato.numero }}</td>
+            <td>{{ contrato.fecha_inicio }}</td>
+            <td>{{ contrato.fecha_fin|default:"-" }}</td>
+            <td>{{ contrato.get_estatus_display }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'operaciones:contrato_update' contrato.pk %}" data-bs-toggle="tooltip" title="Editar" aria-label="Editar">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'operaciones:contrato_delete' contrato.pk %}" data-bs-toggle="tooltip" title="Eliminar" aria-label="Eliminar">
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6" class="text-center">Sin registros.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% include "partials/list_pagination.html" %}
+{% endblock %}

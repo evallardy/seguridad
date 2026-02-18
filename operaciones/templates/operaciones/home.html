@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Operaciones{% endblock %}
+
+{% block content %}
+<div class="row g-3">
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Clientes</h5>
+        <p class="card-text">Gestion de clientes.</p>
+        <a class="btn btn-primary" href="{% url 'operaciones:cliente_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Sitios</h5>
+        <p class="card-text">Lugares y ubicaciones.</p>
+        <a class="btn btn-primary" href="{% url 'operaciones:sitio_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Servicios</h5>
+        <p class="card-text">Tipos de servicio.</p>
+        <a class="btn btn-primary" href="{% url 'operaciones:servicio_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Contratos</h5>
+        <p class="card-text">Contratos vigentes.</p>
+        <a class="btn btn-primary" href="{% url 'operaciones:contrato_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

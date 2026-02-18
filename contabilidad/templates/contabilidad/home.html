@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Contabilidad{% endblock %}
+
+{% block content %}
+<div class="row g-3">
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Cuentas</h5>
+        <p class="card-text">Catalogo de cuentas.</p>
+        <a class="btn btn-primary" href="{% url 'contabilidad:cuenta_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Centros de costo</h5>
+        <p class="card-text">Centros y asignaciones.</p>
+        <a class="btn btn-primary" href="{% url 'contabilidad:centro_costo_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Movimientos</h5>
+        <p class="card-text">Ingresos y gastos.</p>
+        <a class="btn btn-primary" href="{% url 'contabilidad:movimiento_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Facturas</h5>
+        <p class="card-text">Facturacion a clientes.</p>
+        <a class="btn btn-primary" href="{% url 'contabilidad:factura_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

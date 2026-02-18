@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Usuario + Empleado{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  <div class="card-body">
+    <h5 class="card-title">Usuario + Empleado</h5>
+    <div class="alert alert-info">
+      La contrasena inicial sera <strong>Abcd_1234</strong>. El usuario debe cambiarla al primer acceso.
+    </div>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-12">
+          <h6 class="mt-2">Acceso</h6>
+        </div>
+        {{ form.username.as_hidden }}
+        <div class="col-md-6 mb-3">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+          {{ form.email.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.is_active.label_tag }}
+          {{ form.is_active }}
+          {{ form.is_active.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.groups.label_tag }}
+          {{ form.groups }}
+          {{ form.groups.errors }}
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-12">
+          <h6>Empleado</h6>
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.nombres.label_tag }}
+          {{ form.nombres }}
+          {{ form.nombres.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.apellidos.label_tag }}
+          {{ form.apellidos }}
+          {{ form.apellidos.errors }}
+        </div>
+        <div class="col-md-4 mb-3">
+          {{ form.curp.label_tag }}
+          {{ form.curp }}
+          {{ form.curp.errors }}
+        </div>
+        <div class="col-md-4 mb-3">
+          {{ form.rfc.label_tag }}
+          {{ form.rfc }}
+          {{ form.rfc.errors }}
+        </div>
+        <div class="col-md-4 mb-3">
+          {{ form.telefono.label_tag }}
+          {{ form.telefono }}
+          {{ form.telefono.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.email_empleado.label_tag }}
+          {{ form.email_empleado }}
+          {{ form.email_empleado.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.direccion.label_tag }}
+          {{ form.direccion }}
+          {{ form.direccion.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.fecha_nacimiento.label_tag }}
+          {{ form.fecha_nacimiento }}
+          {{ form.fecha_nacimiento.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.fecha_ingreso.label_tag }}
+          {{ form.fecha_ingreso }}
+          {{ form.fecha_ingreso.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.puesto.label_tag }}
+          {{ form.puesto }}
+          {{ form.puesto.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.turno_preferido.label_tag }}
+          {{ form.turno_preferido }}
+          {{ form.turno_preferido.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.estatus.label_tag }}
+          {{ form.estatus }}
+          {{ form.estatus.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.foto.label_tag }}
+          {{ form.foto }}
+          {{ form.foto.errors }}
+        </div>
+        <div class="col-12 mb-3">
+          {{ form.notas.label_tag }}
+          {{ form.notas }}
+          {{ form.notas.errors }}
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-success" type="submit" data-bs-toggle="tooltip" title="Guardar" aria-label="Guardar"><i class="bi bi-check-lg"></i></button>
+        <a class="btn btn-outline-secondary" href="{% url 'usuarios:user_list' %}" data-bs-toggle="tooltip" title="Cancelar" aria-label="Cancelar"><i class="bi bi-x-lg"></i></a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

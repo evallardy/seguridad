@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Facturas{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Facturas</h3>
+  <a class="btn btn-primary" href="{% url 'contabilidad:factura_create' %}" data-bs-toggle="tooltip" title="Nuevo" aria-label="Nuevo">
+    <i class="bi bi-plus-lg"></i>
+  </a>
+</div>
+{% include "partials/list_filters.html" %}
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-striped mb-0">
+      <thead>
+        <tr>
+          <th>Folio</th>
+          <th>Cliente</th>
+          <th>Fecha</th>
+          <th>Total</th>
+          <th>Estatus</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for factura in object_list %}
+          <tr>
+            <td>{{ factura.folio }}</td>
+            <td>{{ factura.cliente }}</td>
+            <td>{{ factura.fecha }}</td>
+            <td>{{ factura.total }}</td>
+            <td>{{ factura.get_estatus_display }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'contabilidad:factura_update' factura.pk %}" data-bs-toggle="tooltip" title="Editar" aria-label="Editar">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'contabilidad:factura_delete' factura.pk %}" data-bs-toggle="tooltip" title="Eliminar" aria-label="Eliminar">
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6" class="text-center">Sin registros.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% include "partials/list_pagination.html" %}
+{% endblock %}

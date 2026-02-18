@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --dash-ink: #0f172a;
+    --dash-muted: #475569;
+    --dash-accent: #0ea5a4;
+    --dash-accent-2: #0b5ed7;
+    --dash-card: #ffffff;
+    --dash-surface: #eef2f7;
+    --dash-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  }
+
+  .dashboard-skin {
+    font-family: "Work Sans", sans-serif;
+    color: var(--dash-ink);
+    background: radial-gradient(circle at top left, #e6f0ff, transparent 55%),
+      radial-gradient(circle at 20% 20%, #f7f2ff, transparent 45%),
+      linear-gradient(180deg, #f5f7fb, #eef2f7 40%, #f8fafc 100%);
+    border-radius: 24px;
+    padding: 28px;
+  }
+
+  .dash-hero {
+    background: linear-gradient(120deg, #0f172a, #1e293b 55%, #0b5ed7 120%);
+    color: #f8fafc;
+    border-radius: 22px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--dash-shadow);
+  }
+
+  .dash-hero::after {
+    content: "";
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(14, 165, 164, 0.6), transparent 70%);
+  }
+
+  .dash-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(24px, 3vw, 36px);
+    letter-spacing: 0.4px;
+  }
+
+  .dash-subtitle {
+    color: rgba(248, 250, 252, 0.75);
+  }
+
+  .dash-quick {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .dash-pill {
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    background: rgba(248, 250, 252, 0.1);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    color: #f8fafc;
+  }
+
+  .dash-card {
+    background: var(--dash-card);
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .dash-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.14);
+  }
+
+  .dash-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #e2e8f0;
+    color: var(--dash-accent-2);
+    font-size: 1.2rem;
+  }
+
+  .dash-link {
+    font-weight: 600;
+    color: var(--dash-accent-2);
+    text-decoration: none;
+  }
+
+  .dash-link:hover {
+    color: var(--dash-accent);
+  }
+
+  .dash-grid {
+    animation: fadeUp 0.7s ease forwards;
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<div class="dashboard-skin">
+  <section class="dash-hero mb-4">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="dash-pill mb-3">
+          Centro de control operativo
+        </div>
+        <h1 class="dash-title">Operacion, activos y personal en un solo lugar</h1>
+        <p class="dash-subtitle mb-3">
+          Panel ejecutivo para coordinar seguridad, asignaciones y seguimiento en tiempo real.
+        </p>
+        <div class="dash-quick">
+          <span class="dash-pill">Alertas 24/7</span>
+          <span class="dash-pill">Cobertura total</span>
+          <span class="dash-pill">Control de activos</span>
+        </div>
+      </div>
+      <div class="col-lg-5 mt-3 mt-lg-0">
+        <div class="p-3 rounded-4 bg-white bg-opacity-10">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.1em;">Estado general</span>
+            <span class="badge text-bg-light">En linea</span>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <div class="dash-icon bg-white text-primary"><i class="bi bi-shield-check"></i></div>
+            <div>
+              <div class="fw-semibold">Monitoreo activo</div>
+              <small class="dash-subtitle">Seguimiento GPS y asignaciones al dia.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dash-grid">
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-4">
+        <div class="card dash-card h-100">
+          <div class="card-body">
+            <div class="dash-icon mb-3"><i class="bi bi-people"></i></div>
+            <h5 class="card-title">Personal</h5>
+            <p class="card-text text-muted">Puestos, turnos y empleados.</p>
+            <a class="dash-link" href="{% url 'usuarios:empleado_list' %}">Entrar <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card dash-card h-100">
+          <div class="card-body">
+            <div class="dash-icon mb-3"><i class="bi bi-key"></i></div>
+            <h5 class="card-title">Accesos</h5>
+            <p class="card-text text-muted">Usuarios y permisos por grupo.</p>
+            <a class="dash-link" href="{% url 'usuarios:user_list' %}">Entrar <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card dash-card h-100">
+          <div class="card-body">
+            <div class="dash-icon mb-3"><i class="bi bi-diagram-3"></i></div>
+            <h5 class="card-title">Grupos</h5>
+            <p class="card-text text-muted">Roles y permisos por modulo.</p>
+            <a class="dash-link" href="{% url 'usuarios:group_list' %}">Entrar <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card dash-card h-100">
+          <div class="card-body">
+            <div class="dash-icon mb-3"><i class="bi bi-building"></i></div>
+            <h5 class="card-title">Operaciones</h5>
+            <p class="card-text text-muted">Clientes, sitios, contratos y servicios.</p>
+            <a class="dash-link" href="{% url 'operaciones:home' %}">Entrar <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card dash-card h-100">
+          <div class="card-body">
+            <div class="dash-icon mb-3"><i class="bi bi-truck"></i></div>
+            <h5 class="card-title">Activos</h5>
+            <p class="card-text text-muted">Vehiculos, armamento, refacciones y combustible.</p>
+            <a class="dash-link" href="{% url 'activos:home' %}">Entrar <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card dash-card h-100">
+          <div class="card-body">
+            <div class="dash-icon mb-3"><i class="bi bi-clipboard-check"></i></div>
+            <h5 class="card-title">Asignaciones</h5>
+            <p class="card-text text-muted">Rutas, turnos y personal asignado.</p>
+            <a class="dash-link" href="{% url 'asignaciones:home' %}">Entrar <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card dash-card h-100">
+          <div class="card-body">
+            <div class="dash-icon mb-3"><i class="bi bi-gear"></i></div>
+            <h5 class="card-title">Mantenimiento</h5>
+            <p class="card-text text-muted">Ordenes, inspecciones y programaciones.</p>
+            <a class="dash-link" href="{% url 'mantenimiento:home' %}">Entrar <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card dash-card h-100">
+          <div class="card-body">
+            <div class="dash-icon mb-3"><i class="bi bi-geo-alt"></i></div>
+            <h5 class="card-title">Tracking GPS</h5>
+            <p class="card-text text-muted">Ubicaciones, dispositivos y permisos.</p>
+            <a class="dash-link" href="{% url 'tracking:home' %}">Entrar <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card dash-card h-100">
+          <div class="card-body">
+            <div class="dash-icon mb-3"><i class="bi bi-cash-coin"></i></div>
+            <h5 class="card-title">Contabilidad</h5>
+            <p class="card-text text-muted">Movimientos, cuentas y facturas.</p>
+            <a class="dash-link" href="{% url 'contabilidad:home' %}">Entrar <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

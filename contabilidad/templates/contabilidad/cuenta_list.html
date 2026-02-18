@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Cuentas{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Cuentas</h3>
+  <a class="btn btn-primary" href="{% url 'contabilidad:cuenta_create' %}" data-bs-toggle="tooltip" title="Nuevo" aria-label="Nuevo">
+    <i class="bi bi-plus-lg"></i>
+  </a>
+</div>
+{% include "partials/list_filters.html" %}
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-striped mb-0">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Codigo</th>
+          <th>Activa</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cuenta in object_list %}
+          <tr>
+            <td>{{ cuenta.nombre }}</td>
+            <td>{{ cuenta.get_tipo_display }}</td>
+            <td>{{ cuenta.codigo|default:"-" }}</td>
+            <td>{{ cuenta.activa|yesno:"Si,No" }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'contabilidad:cuenta_update' cuenta.pk %}" data-bs-toggle="tooltip" title="Editar" aria-label="Editar">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'contabilidad:cuenta_delete' cuenta.pk %}" data-bs-toggle="tooltip" title="Eliminar" aria-label="Eliminar">
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" class="text-center">Sin registros.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% include "partials/list_pagination.html" %}
+{% endblock %}

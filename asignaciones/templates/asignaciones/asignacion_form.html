@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Asignacion{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  <div class="card-body">
+    <h5 class="card-title">Asignacion</h5>
+    <form method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          {{ form.tipo.label_tag }}
+          {{ form.tipo }}
+          {{ form.tipo.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.contrato.label_tag }}
+          {{ form.contrato }}
+          {{ form.contrato.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.sitio.label_tag }}
+          {{ form.sitio }}
+          {{ form.sitio.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.ruta.label_tag }}
+          {{ form.ruta }}
+          {{ form.ruta.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.fecha_inicio.label_tag }}
+          {{ form.fecha_inicio }}
+          {{ form.fecha_inicio.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.fecha_fin.label_tag }}
+          {{ form.fecha_fin }}
+          {{ form.fecha_fin.errors }}
+        </div>
+        <div class="col-md-6 mb-3" id="turno-field">
+          {{ form.turno.label_tag }}
+          {{ form.turno }}
+          {{ form.turno.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.estatus.label_tag }}
+          {{ form.estatus }}
+          {{ form.estatus.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.equipo.label_tag }}
+          {{ form.equipo }}
+          {{ form.equipo.errors }}
+        </div>
+        <div class="col-12 mb-3">
+          {{ form.observaciones.label_tag }}
+          {{ form.observaciones }}
+          {{ form.observaciones.errors }}
+        </div>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-success" type="submit" data-bs-toggle="tooltip" title="Guardar" aria-label="Guardar"><i class="bi bi-check-lg"></i></button>
+        <a class="btn btn-outline-secondary" href="{% url 'asignaciones:asignacion_list' %}" data-bs-toggle="tooltip" title="Cancelar" aria-label="Cancelar"><i class="bi bi-x-lg"></i></a>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  const tipoSelect = document.getElementById("id_tipo");
+  const turnoField = document.getElementById("turno-field");
+  const turnoInput = document.getElementById("id_turno");
+
+  const toggleTurno = () => {
+    const show = tipoSelect && tipoSelect.value === "sitio";
+    if (turnoField) {
+      turnoField.style.display = show ? "block" : "none";
+    }
+    if (turnoInput) {
+      turnoInput.disabled = !show;
+    }
+  };
+
+  if (tipoSelect) {
+    tipoSelect.addEventListener("change", toggleTurno);
+    toggleTurno();
+  }
+</script>
+{% endblock %}

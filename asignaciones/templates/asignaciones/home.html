@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Asignaciones{% endblock %}
+
+{% block content %}
+<div class="row g-3">
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Rutas</h5>
+        <p class="card-text">Planeacion de rutas.</p>
+        <a class="btn btn-primary" href="{% url 'asignaciones:ruta_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Equipos</h5>
+        <p class="card-text">Supervision y equipos.</p>
+        <a class="btn btn-primary" href="{% url 'asignaciones:equipo_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Asignaciones</h5>
+        <p class="card-text">Rutas y sitios.</p>
+        <a class="btn btn-primary" href="{% url 'asignaciones:asignacion_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Personal</h5>
+        <p class="card-text">Asignacion de personal.</p>
+        <a class="btn btn-primary" href="{% url 'asignaciones:asignacion_empleado_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

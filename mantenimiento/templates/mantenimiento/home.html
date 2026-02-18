@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Mantenimiento{% endblock %}
+
+{% block content %}
+<div class="row g-3">
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Ordenes</h5>
+        <p class="card-text">Ordenes de mantenimiento.</p>
+        <a class="btn btn-primary" href="{% url 'mantenimiento:orden_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Detalles</h5>
+        <p class="card-text">Refacciones y costos.</p>
+        <a class="btn btn-primary" href="{% url 'mantenimiento:detalle_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Programaciones</h5>
+        <p class="card-text">Proximos servicios.</p>
+        <a class="btn btn-primary" href="{% url 'mantenimiento:programacion_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Inspecciones</h5>
+        <p class="card-text">Inspecciones registradas.</p>
+        <a class="btn btn-primary" href="{% url 'mantenimiento:inspeccion_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

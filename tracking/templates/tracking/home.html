@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Tracking GPS{% endblock %}
+
+{% block content %}
+<div class="row g-3">
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Dispositivos</h5>
+        <p class="card-text">Equipos registrados.</p>
+        <a class="btn btn-primary" href="{% url 'tracking:dispositivo_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Permisos GPS</h5>
+        <p class="card-text">Autorizaciones y revocaciones.</p>
+        <a class="btn btn-primary" href="{% url 'tracking:permiso_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Ubicaciones</h5>
+        <p class="card-text">Historial GPS.</p>
+        <a class="btn btn-primary" href="{% url 'tracking:ubicacion_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Mi perfil{% endblock %}
+
+{% block content %}
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Cuenta</h5>
+        <dl class="row mb-0">
+          <dt class="col-sm-4">Usuario</dt>
+          <dd class="col-sm-8">{{ user.username }}</dd>
+          <dt class="col-sm-4">Nombre</dt>
+          <dd class="col-sm-8">{{ user.get_full_name|default_if_none:"" }}</dd>
+          <dt class="col-sm-4">Email</dt>
+          <dd class="col-sm-8">{{ user.email|default_if_none:"" }}</dd>
+          <dt class="col-sm-4">Ultimo acceso</dt>
+          <dd class="col-sm-8">{{ user.last_login|default_if_none:"" }}</dd>
+          <dt class="col-sm-4">Registro</dt>
+          <dd class="col-sm-8">{{ user.date_joined|default_if_none:"" }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Datos personales</h5>
+        {% if empleado %}
+          <dl class="row mb-0">
+            <dt class="col-sm-4">Nombre</dt>
+            <dd class="col-sm-8">{{ empleado.nombres }} {{ empleado.apellidos }}</dd>
+            <dt class="col-sm-4">Telefono</dt>
+            <dd class="col-sm-8">{{ empleado.telefono|default_if_none:"" }}</dd>
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">{{ empleado.email|default_if_none:"" }}</dd>
+            <dt class="col-sm-4">Direccion</dt>
+            <dd class="col-sm-8">{{ empleado.direccion|default_if_none:"" }}</dd>
+            <dt class="col-sm-4">CURP</dt>
+            <dd class="col-sm-8">{{ empleado.curp|default_if_none:"" }}</dd>
+            <dt class="col-sm-4">RFC</dt>
+            <dd class="col-sm-8">{{ empleado.rfc|default_if_none:"" }}</dd>
+            <dt class="col-sm-4">Nacimiento</dt>
+            <dd class="col-sm-8">{{ empleado.fecha_nacimiento|default_if_none:"" }}</dd>
+            <dt class="col-sm-4">Foto</dt>
+            <dd class="col-sm-8">
+              {% if empleado.foto %}
+                <a href="{{ empleado.foto.url }}" target="_blank" rel="noopener">Ver archivo</a>
+              {% else %}
+                
+              {% endif %}
+            </dd>
+            <dt class="col-sm-4">Notas</dt>
+            <dd class="col-sm-8">{{ empleado.notas|default_if_none:"" }}</dd>
+          </dl>
+        {% else %}
+          <p class="text-muted mb-0">No hay empleado asociado a este usuario.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Datos de oficina</h5>
+        {% if empleado %}
+          <dl class="row mb-0">
+            <dt class="col-sm-3">Puesto</dt>
+            <dd class="col-sm-9">{{ empleado.puesto|default_if_none:"" }}</dd>
+            <dt class="col-sm-3">Turno</dt>
+            <dd class="col-sm-9">{{ empleado.turno_preferido|default_if_none:"" }}</dd>
+            <dt class="col-sm-3">Ingreso</dt>
+            <dd class="col-sm-9">{{ empleado.fecha_ingreso|default_if_none:"" }}</dd>
+            <dt class="col-sm-3">Estatus</dt>
+            <dd class="col-sm-9">{{ empleado.get_estatus_display }}</dd>
+          </dl>
+        {% else %}
+          <p class="text-muted mb-0">Sin datos de oficina.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% if show_asignaciones %}
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0">Asignaciones</h5>
+            <a class="btn btn-outline-secondary btn-sm" href="{% url 'usuarios:perfil_asignaciones' %}">
+              Ver historia
+            </a>
+          </div>
+          {% if empleado %}
+            {% if asignaciones_detalle %}
+              <div class="table-responsive">
+                <table class="table table-sm table-striped mb-0">
+                  <thead>
+                    <tr>
+                      <th>Asignacion</th>
+                      <th>Tipo</th>
+                      <th>Contrato</th>
+                      <th>Sitio / Ruta</th>
+                      <th>Inicio</th>
+                      <th>Fin</th>
+                      <th>Tiempo (dias)</th>
+                      <th>Activos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in asignaciones_detalle %}
+                      <tr>
+                        <td>{{ item.asignacion }}</td>
+                        <td>{{ item.asignacion.get_tipo_display }}</td>
+                        <td>{{ item.asignacion.contrato }}</td>
+                        <td>
+                          {% if item.asignacion.sitio %}
+                            {{ item.asignacion.sitio }}
+                          {% elif item.asignacion.ruta %}
+                            {{ item.asignacion.ruta }}
+                          {% endif %}
+                        </td>
+                        <td>{{ item.asignacion_empleado.fecha_inicio|default_if_none:"" }}</td>
+                        <td>{{ item.asignacion_empleado.fecha_fin|default_if_none:"" }}</td>
+                        <td>{{ item.dias|default_if_none:"" }}</td>
+                        <td>
+                          {% if item.activos %}
+                            {% for activo in item.activos %}
+                              {{ activo.activo }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                          {% else %}
+                            
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <p class="text-muted mb-0">Sin asignaciones registradas.</p>
+            {% endif %}
+          {% else %}
+            <p class="text-muted mb-0">Sin datos de asignacion.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

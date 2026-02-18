@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Activos{% endblock %}
+
+{% block content %}
+<div class="row g-3">
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Vehiculos</h5>
+        <p class="card-text">Control vehicular y estatus.</p>
+        <a class="btn btn-primary" href="{% url 'activos:vehiculo_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Armamento</h5>
+        <p class="card-text">Inventario de armamento.</p>
+        <a class="btn btn-primary" href="{% url 'activos:armamento_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Refacciones</h5>
+        <p class="card-text">Stock y costos.</p>
+        <a class="btn btn-primary" href="{% url 'activos:refaccion_list' %}">Ver</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

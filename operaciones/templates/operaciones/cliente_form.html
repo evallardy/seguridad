@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Cliente{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  <div class="card-body">
+    <h5 class="card-title">Cliente</h5>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="d-flex gap-2">
+        <button class="btn btn-success" type="submit" data-bs-toggle="tooltip" title="Guardar" aria-label="Guardar"><i class="bi bi-check-lg"></i></button>
+        <a class="btn btn-outline-secondary" href="{% url 'operaciones:cliente_list' %}" data-bs-toggle="tooltip" title="Cancelar" aria-label="Cancelar"><i class="bi bi-x-lg"></i></a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

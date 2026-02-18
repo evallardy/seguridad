@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Eliminar asignacion{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  <div class="card-body">
+    <h5 class="card-title">Eliminar asignacion</h5>
+    <p>Deseas eliminar la asignacion de {{ object.activo }}?</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="d-flex gap-2">
+        <button class="btn btn-danger" type="submit" data-bs-toggle="tooltip" title="Eliminar" aria-label="Eliminar">
+          <i class="bi bi-trash"></i>
+        </button>
+        <a class="btn btn-outline-secondary" href="{% url 'activos:asignacion_activo_list' %}" data-bs-toggle="tooltip" title="Cancelar" aria-label="Cancelar">
+          <i class="bi bi-x-lg"></i>
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Usuario{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  <div class="card-body">
+    <h5 class="card-title">Usuario</h5>
+    <div class="alert alert-info">
+      La contrasena inicial sera <strong>Abcd_1234</strong>. El usuario debe cambiarla al primer acceso.
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="d-flex gap-2">
+        <button class="btn btn-success" type="submit" data-bs-toggle="tooltip" title="Guardar" aria-label="Guardar"><i class="bi bi-check-lg"></i></button>
+        <a class="btn btn-outline-secondary" href="{% url 'usuarios:user_list' %}" data-bs-toggle="tooltip" title="Cancelar" aria-label="Cancelar"><i class="bi bi-x-lg"></i></a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

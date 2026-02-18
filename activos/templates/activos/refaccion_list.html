@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Refacciones{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Refacciones</h3>
+  <a class="btn btn-primary" href="{% url 'activos:refaccion_create' %}" data-bs-toggle="tooltip" title="Nuevo" aria-label="Nuevo">
+    <i class="bi bi-plus-lg"></i>
+  </a>
+</div>
+{% include "partials/list_filters.html" %}
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-striped mb-0">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo activo</th>
+          <th>Unidad</th>
+          <th>Stock minimo</th>
+          <th>Costo unitario</th>
+          <th>Fecha alta</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for refaccion in object_list %}
+          <tr>
+            <td>{{ refaccion.nombre }}</td>
+            <td>{{ refaccion.get_tipo_activo_display }}</td>
+            <td>{{ refaccion.unidad }}</td>
+            <td>{{ refaccion.stock_minimo }}</td>
+            <td>{{ refaccion.costo_unitario }}</td>
+            <td>{{ refaccion.fecha_alta|default_if_none:"" }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'activos:refaccion_update' refaccion.pk %}" data-bs-toggle="tooltip" title="Editar" aria-label="Editar">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'activos:refaccion_delete' refaccion.pk %}" data-bs-toggle="tooltip" title="Eliminar" aria-label="Eliminar">
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" class="text-center">Sin registros.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% include "partials/list_pagination.html" %}
+{% endblock %}

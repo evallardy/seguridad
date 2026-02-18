@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Historia de asignaciones{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Historia de asignaciones</h3>
+  <a class="btn btn-outline-secondary" href="{% url 'usuarios:perfil' %}">Volver</a>
+</div>
+
+{% if empleado %}
+  {% if asignaciones_detalle %}
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Asignacion</th>
+              <th>Tipo</th>
+              <th>Contrato</th>
+              <th>Sitio / Ruta</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Tiempo (dias)</th>
+              <th>Activos</th>
+              <th>Estatus</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in asignaciones_detalle %}
+              <tr>
+                <td>{{ item.asignacion }}</td>
+                <td>{{ item.asignacion.get_tipo_display }}</td>
+                <td>{{ item.asignacion.contrato }}</td>
+                <td>
+                  {% if item.asignacion.sitio %}
+                    {{ item.asignacion.sitio }}
+                  {% elif item.asignacion.ruta %}
+                    {{ item.asignacion.ruta }}
+                  {% endif %}
+                </td>
+                <td>{{ item.asignacion_empleado.fecha_inicio|default_if_none:"" }}</td>
+                <td>{{ item.asignacion_empleado.fecha_fin|default_if_none:"" }}</td>
+                <td>{{ item.dias|default_if_none:"" }}</td>
+                <td>
+                  {% if item.activos %}
+                    {% for activo in item.activos %}
+                      {{ activo.activo }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                  {% else %}
+                    
+                  {% endif %}
+                </td>
+                <td>{{ item.asignacion_empleado.get_estatus_display }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% else %}
+    <p class="text-muted">Sin historial de asignaciones.</p>
+  {% endif %}
+{% else %}
+  <p class="text-muted">Sin datos de asignacion.</p>
+{% endif %}
+{% endblock %}

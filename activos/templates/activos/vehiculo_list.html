@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Vehiculos{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Vehiculos</h3>
+  <a class="btn btn-primary" href="{% url 'activos:vehiculo_create' %}" data-bs-toggle="tooltip" title="Nuevo" aria-label="Nuevo">
+    <i class="bi bi-plus-lg"></i>
+  </a>
+</div>
+{% include "partials/list_filters.html" %}
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-striped mb-0">
+      <thead>
+        <tr>
+          <th>Clave</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Anio</th>
+          <th>Placas</th>
+          <th>Estatus</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for vehiculo in object_list %}
+          <tr>
+            <td>{{ vehiculo.clave }}</td>
+            <td>{{ vehiculo.marca }}</td>
+            <td>{{ vehiculo.modelo }}</td>
+            <td>{{ vehiculo.anio }}</td>
+            <td>{{ vehiculo.placas }}</td>
+            <td>{{ vehiculo.get_estatus_display }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'mantenimiento:orden_list' %}?activo_type=vehiculo&activo_id={{ vehiculo.pk }}" data-bs-toggle="tooltip" title="Mantenimientos" aria-label="Mantenimientos">
+                <i class="bi bi-wrench-adjustable"></i>
+              </a>
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'activos:asignacion_activo_list' %}?vehiculo={{ vehiculo.pk }}" data-bs-toggle="tooltip" title="Asignaciones" aria-label="Asignaciones">
+                <i class="bi bi-clipboard-check"></i>
+              </a>
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'activos:registro_combustible_list' %}?vehiculo={{ vehiculo.pk }}" data-bs-toggle="tooltip" title="Gasolina" aria-label="Gasolina">
+                <i class="bi bi-fuel-pump"></i>
+              </a>
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'activos:vehiculo_update' vehiculo.pk %}" data-bs-toggle="tooltip" title="Editar" aria-label="Editar">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'activos:vehiculo_delete' vehiculo.pk %}" data-bs-toggle="tooltip" title="Eliminar" aria-label="Eliminar">
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" class="text-center">Sin registros.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% include "partials/list_pagination.html" %}
+{% endblock %}
