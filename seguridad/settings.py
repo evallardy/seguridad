@@ -31,6 +31,11 @@ ALLOWED_HOSTS = [h.strip() for h in os.environ.get('DJANGO_ALLOWED_HOSTS', '').s
 # Required when serving behind HTTPS on a custom domain (Django 4+)
 CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',') if o.strip()]
 
+cookie_domain = os.environ.get('DJANGO_COOKIE_DOMAIN', '').strip()
+if cookie_domain:
+    CSRF_COOKIE_DOMAIN = cookie_domain
+    SESSION_COOKIE_DOMAIN = cookie_domain
+
 # If running behind a reverse proxy (e.g. Nginx) that terminates TLS, enable this
 if os.environ.get('DJANGO_BEHIND_PROXY', '0') == '1':
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
